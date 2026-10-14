@@ -16,10 +16,11 @@ class QuestSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: quests.asMap().entries.map((entry) {
-        int index = entry.key;
-        Quest quest = entry.value;
+    // UBAH DARI Column MENJADI ListView.builder
+    return ListView.builder(
+      itemCount: quests.length,
+      itemBuilder: (context, index) {
+        final quest = quests[index];
         return QuestCard(
           title: quest.title,
           isMainQuest: quest.isMainQuest,
@@ -28,7 +29,7 @@ class QuestSelection extends StatelessWidget {
           isCompleted: quest.isCompleted,
           onClaim: () => onClaim(index),
         );
-      }).toList(),
+      },
     );
   }
 }

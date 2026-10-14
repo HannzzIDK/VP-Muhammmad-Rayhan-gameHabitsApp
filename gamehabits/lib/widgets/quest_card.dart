@@ -18,7 +18,7 @@ class QuestCard extends StatelessWidget {
     required this.onClaim,
   });
 
- @override
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -26,40 +26,52 @@ class QuestCard extends StatelessWidget {
 
     return Card(
       elevation: isCompleted ? 0 : 2,
-      color: isCompleted ? colorScheme.surfaceContainerHighest : colorScheme.surface,
+      color: isCompleted
+          ? colorScheme.surfaceContainerHighest
+          : colorScheme.surface,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        
+
+        // TITLE: Sudah aman dengan maxLines dan overflow
         title: Text(
           title,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: isCompleted ? colorScheme.outline : colorScheme.onSurface,
             decoration: isCompleted ? TextDecoration.lineThrough : null,
           ),
         ),
-        
+
+        // SUBTITLE: Di sinilah letak error garis ke-50 Anda sebelumnya.
+        // Wajib menggunakan Wrap, BUKAN Row.
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Row(
+          child: Wrap(
+            spacing: 8.0,
+            runSpacing: 4.0,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: isMainQuest ? colorScheme.errorContainer : colorScheme.secondaryContainer,
+                  color: isMainQuest
+                      ? colorScheme.errorContainer
+                      : colorScheme.secondaryContainer,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   isMainQuest ? 'MAIN' : 'SIDE',
                   style: textTheme.labelSmall?.copyWith(
-                    color: isMainQuest ? colorScheme.onErrorContainer : colorScheme.onSecondaryContainer,
+                    color: isMainQuest
+                        ? colorScheme.onErrorContainer
+                        : colorScheme.onSecondaryContainer,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
               Text(
                 '+$expReward EXP  •  $coinReward Koin',
                 style: textTheme.bodySmall?.copyWith(
@@ -69,12 +81,15 @@ class QuestCard extends StatelessWidget {
             ],
           ),
         ),
-        
+
+        // TRAILING: Dibungkus FittedBox agar tombol tidak luber
         trailing: isCompleted
             ? Icon(Icons.check_circle, color: colorScheme.primary, size: 32)
-            : FilledButton.tonal(
-                onPressed: onClaim,
-                child: const Text('Klaim'),
+            : FittedBox(
+                child: FilledButton.tonal(
+                  onPressed: onClaim,
+                  child: const Text('Klaim'),
+                ),
               ),
       ),
     );

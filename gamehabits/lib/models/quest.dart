@@ -1,5 +1,5 @@
 class Quest {
-  String id;
+  int id;
   String title;
   bool isMainQuest;
   int expReward;
