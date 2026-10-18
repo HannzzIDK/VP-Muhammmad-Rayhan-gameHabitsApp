@@ -4,6 +4,7 @@ import '../models/quest.dart';
 import '../widgets/empty_quest_view.dart';
 import '../widgets/quest_section.dart';
 import '../widgets/user_stats_header.dart';
+import 'add_quest_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<Quest>? initialQuests;
@@ -124,10 +125,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
           },
         ),
       ),
-      // TES BONUS: Tombol pindah ke FAB agar pasti aman dari poni dan garis gestur
       floatingActionButton: FloatingActionButton(
-        key: const Key('order-button'), // Wajib ada untuk Tes Bonus
-        onPressed: () {},
+        key: const Key('order-button'),
+        onPressed: () {
+          // Navigasi dorong (push) ke layar baru
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddQuestScreen()),
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );

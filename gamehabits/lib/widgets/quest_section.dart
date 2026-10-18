@@ -16,7 +16,6 @@ class QuestSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // UBAH DARI Column MENJADI ListView.builder
     return ListView.builder(
       itemCount: quests.length,
       itemBuilder: (context, index) {

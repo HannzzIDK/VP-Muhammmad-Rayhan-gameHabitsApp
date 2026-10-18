@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/quest_detail_screen.dart';
+
 class QuestCard extends StatelessWidget {
   final String title;
   final bool isMainQuest;
@@ -81,6 +83,17 @@ class QuestCard extends StatelessWidget {
             ],
           ),
         ),
+
+        // ON TAP: Navigasi ke layar detail quest dengan judul quest
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // Melempar data judul quest dari kartu ini ke layar detail
+              builder: (context) => QuestDetailScreen(questTitle: title),
+            ),
+          );
+        },
 
         // TRAILING: Dibungkus FittedBox agar tombol tidak luber
         trailing: isCompleted
